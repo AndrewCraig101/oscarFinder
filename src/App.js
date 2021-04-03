@@ -1,35 +1,28 @@
 import React, { Profiler } from 'react'
-// import './index.css';
 import firebase from './firebase';
-
-// import Header from './Header.js';
 // import Footer from './Footer.js';
 import Selection from './Selection.js';
 import DisplayWinners from './DisplayWinners.js'
 import Statue from './assets/statue.png';
 
 import { useEffect, useState } from 'react';
-// import axios from 'axios';
 
 function App() {
 
   const [allProfiles, setAllProfiles] = useState([]);
 
-  const [yearChoice, setYearChoice] = useState('')
+  const [yearChoice, setYearChoice] = useState('placeholder')
 
   const [userSelectedYear, setUserSelectedYear] = useState([])
 
   const [newState, setNewState] = useState([])
 
+  const [finalWinners, setFinalWinners] = useState([]);
+
   useEffect(() => {
-    // console.log('hello')
+  
     const dbRef = firebase.database().ref();
 
-    // your data homes is an array, so you would have to iterate over the array using Array.prototype.map() for it to work.
-
-    // dbRef.on(handleSubmit, (data) => {
-    //   console.log(data.val());
-    // });
     const copyArray = []
 
     dbRef.on('value', (response) => {
@@ -51,32 +44,38 @@ function App() {
   }
 
   const handleSubmit = (e) => {
+    console.clear()
     e.preventDefault();
 
     const yearArr = [];
 
     for (let i of allProfiles) {
 
-      if (i.year == yearChoice) {
+      if (i.year == yearChoice && i.winner === true) {
         yearArr.push(i);
       }
     }
+    console.log(yearArr)
+
+    setFinalWinners(yearArr)
+
+    console.log(finalWinners)
   }
-    
 
   
-
   return (
-    <div className='containerMain'>
+    <div className="wrapper">
+      <div className='containerMain'>
 
-      <img src={Statue} alt="Oscar statue" />
-      <div className="containerData">
-      <h1>Welcome To Oscar Finder</h1>
-      <Selection handleSubmit={handleSubmit} yearChoice={yearChoice} handleChange={handleChange}/>
-      <DisplayWinners allProfiles={allProfiles}  />
+        <img src={Statue} className="fade-in" alt="Oscar statue" />
+        <div className="containerData">
+        <h1>Welcome To Oscar Finder</h1>
+        <Selection yearChoice={yearChoice} handleChange={handleChange} handleSubmit={handleSubmit}/>
+        <DisplayWinners allProfiles={allProfiles} finalWinners={finalWinners}  />
+        </div>
+
+        <img src={Statue} alt="Oscar statue" />
       </div>
-
-      <img src={Statue} alt="Oscar statue" />
     </div>
   )
 };

@@ -1,45 +1,39 @@
 const DisplayWinners = (props) => {
+
+    const { finalWinners } = props;
+
     
-    const { allProfiles, yearChoice } = props;
-  
-    const filteredProfiles = allProfiles.filter((profile) => {
-
         return (
-            (profile.year === yearChoice && profile.winner)  
-        )
-    })
-
-
-    return (
-        <section className="results">
-            {
-                filteredProfiles.length === 0 ?
-                    <h2>No winners found! Check back later</h2>
-                    : 
-                    <>
-                        <h2>Winners!</h2>
-                        <div className="winners">
-                            {  
-                            filteredProfiles.map((profile) => {                       
+            finalWinners.length === 0 ?
+                <h2>No winners found! Check back later</h2>
+                :
+                <>
+                    <h2>Winners!</h2>
+                    <div className="winners">
+                        {
+                            finalWinners.map((profile) => {
                                 return (
-                                    <div className="winner-container">
-                                        <p>{profile.category}</p>
-                                        <p>{profile.entity}</p>
-                                        <p>{profile.year}</p>
-                                    </div>
+                                    
+                                        <div className="winner-container">
+                                            <p className="categoryP">{profile.category}</p>
+                                            <p className="entityP">{profile.entity}</p>
+                                            <p className="yearP">{profile.year}</p>
+                                        </div>
+                                   
                                 )
 
-                              
-                             }
+
+                            }
 
                             )}
 
-                        </div>
-                    </>
-            }
-        </section>
-    )
-}
+                    </div>
+                </>
+        )
+    }
+
+
+
 export default DisplayWinners;
 
 
