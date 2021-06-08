@@ -51,7 +51,7 @@ function App() {
 
     for (let i of allProfiles) {
 
-      if (i.year == yearChoice && i.winner === true) {
+      if (i.year.toString === yearChoice && i.winner === true) {
         yearArr.push(i);
       }
     }
