@@ -32,16 +32,22 @@ function App() {
       for (let index in data) {
         copyArray.push(data[index])
       }
+
+      
       
     });
     
     setAllProfiles(copyArray);
+
+    console.log(copyArray)
 
     },[])
 
   const handleChange = (event) => {
     setYearChoice(event.target.value);
   }
+
+  console.log(yearChoice)
 
   const handleSubmit = (e) => {
     console.clear()
@@ -51,7 +57,7 @@ function App() {
 
     for (let i of allProfiles) {
 
-      if (i.year.toString === yearChoice && i.winner === true) {
+      if (i.year == yearChoice && i.winner === true) {
         yearArr.push(i);
       }
     }
